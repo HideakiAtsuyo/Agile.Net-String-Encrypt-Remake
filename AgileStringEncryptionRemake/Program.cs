@@ -38,7 +38,6 @@ namespace AgileStringEncryptionRemake
             {
                 if (cctor.Body.Instructions[i].ToString().Contains(byteArrayName) && cctor.Body.Instructions[i].OpCode == OpCodes.Stsfld)
                 {
-
                     cctor.Body.Instructions[i - 1].OpCode = OpCodes.Call;
                     cctor.Body.Instructions[i - 1].Operand = initArray;
 
@@ -49,7 +48,6 @@ namespace AgileStringEncryptionRemake
 
                     try
                     {
-
                         ModuleWriterOptions options = new ModuleWriterOptions(mod);
                         options.MetadataOptions.Flags = MetadataFlags.KeepOldMaxStack;
                         mod.Write(Path.ChangeExtension(path, "agiled" + Path.GetExtension(path)), options);
