@@ -1,13 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace AgileStringEncryptionRemake
+﻿namespace AgileStringEncryptionRemake
 {
     internal class Settings
     {
-        public static string whatAbadKindOfWatermark = Convert.ToBase64String(Encoding.UTF8.GetBytes("github.com/HideakiAtsuyo"));
+        public static string typeDefName = "<AgileDotNetRT>";
+        public static string decryptStringMethodName = "oRM=";
+
+        public static string byteArrayName = "pRM=";
+
+        //public static string typeDefByteArrayInitName = "oxM=";
+        //public static string typeDefByteArrayInitStrucName = "ohM=";
     }
 }

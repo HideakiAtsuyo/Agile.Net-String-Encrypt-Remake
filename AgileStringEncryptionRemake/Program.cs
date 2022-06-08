@@ -15,6 +15,9 @@ namespace AgileStringEncryptionRemake
         {
             Importer importer = new Importer(mod);
 
+            //TypeDef newTypeDef = new TypeDefUser(mod.GlobalType.Namespace, Settings.typeDefByteArrayInitName, mod.GlobalType.BaseType);
+            //mod.Types.Add(newTypeDef);
+
             ITypeDefOrRef valueTypeRef = importer.Import(typeof(System.ValueType));
             TypeDef classWithLayout = new TypeDefUser("kaoClass", valueTypeRef);
             classWithLayout.Attributes |= TypeAttributes.Sealed | TypeAttributes.ExplicitLayout;
@@ -25,7 +28,9 @@ namespace AgileStringEncryptionRemake
             fieldWithRVA.InitialValue = injectedData;
             classWithLayout.Fields.Add(fieldWithRVA);
 
-            var fieldInjectedArray = mod.GlobalType.Fields.Where(x => x.Name == byteArrayName).First();
+            TypeDef typeDef = mod.Types.Where(x => x.Name == Settings.typeDefName).First();
+
+            var fieldInjectedArray = typeDef.Fields.Where(x => x.Name == byteArrayName).First();
             Console.WriteLine(fieldInjectedArray.Name);
             fieldInjectedArray = new FieldDefUser(byteArrayName, new FieldSig(mod.CorLibTypes.Byte.ToTypeDefOrRef().ToTypeSig()), FieldAttributes.Static | FieldAttributes.Private);
 
@@ -33,7 +38,7 @@ namespace AgileStringEncryptionRemake
             ITypeDefOrRef runtimeHelpers = importer.Import(typeof(System.Runtime.CompilerServices.RuntimeHelpers));
             IMethod initArray = importer.Import(typeof(System.Runtime.CompilerServices.RuntimeHelpers).GetMethod("InitializeArray", new Type[] { typeof(System.Array), typeof(System.RuntimeFieldHandle) }));
 
-            MethodDef cctor = mod.GlobalType.FindOrCreateStaticConstructor();
+            MethodDef cctor = typeDef.FindOrCreateStaticConstructor();
             for (int i = 0; i < cctor.Body.Instructions.Count(); i++)
             {
                 if (cctor.Body.Instructions[i].ToString().Contains(byteArrayName) && cctor.Body.Instructions[i].OpCode == OpCodes.Stsfld)
@@ -57,6 +62,7 @@ namespace AgileStringEncryptionRemake
                     {
                         Console.WriteLine(ex);
                     }
+                    Console.ReadLine();
                     Environment.Exit(0);
                 }
             }
@@ -70,19 +76,8 @@ namespace AgileStringEncryptionRemake
             ModuleDefMD Module = ModuleDefMD.Load(args[0]);
             Strings.Execute(Module);
 
-            InjectArrayAndWrite(Module, Core.Protections.Runtime.Strings.byteArrayYouKnow, "QWdpbGVTdHJpbmdFbmNyeXB0aW9uQnl0ZXNBcnJheUxtYW8=", args[0]);
-            /*try
-            {
+            InjectArrayAndWrite(Module, Core.Protections.Runtime.Strings.byteArrayYouKnow, Settings.byteArrayName, args[0]);
 
-                ModuleWriterOptions options = new ModuleWriterOptions(Module);
-                options.MetadataOptions.Flags = MetadataFlags.KeepOldMaxStack;
-                Module.Write(Path.ChangeExtension(args[0], "agiled" + Path.GetExtension(args[0])), options);
-                Console.WriteLine("Finished !");
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex);
-            }*/
             Environment.Exit(0);
             Console.ReadLine();
         }
