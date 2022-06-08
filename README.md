@@ -1,6 +1,6 @@
 # Agile.Net-String-Encrypt-Remake
 
-[![](https://www.codefactor.io/repository/github/HideakiAtsuyo/Agile.Net-String-Encrypt-Remake/badge)](https://www.codefactor.io/repository/github/HideakiAtsuyo/Agile.Net-String-Encrypt-Remake)<br><br>[Small Video](https://i.imgur.com/Yira5V5.mp4)
+[![](https://www.codefactor.io/repository/github/HideakiAtsuyo/Agile.Net-String-Encrypt-Remake/badge)](https://www.codefactor.io/repository/github/HideakiAtsuyo/Agile.Net-String-Encrypt-Remake)<br><br>![](https://i.imgur.com/E28psPP.gif)
 
 Agile.Net Obfuscator String Encryption Remake
 
