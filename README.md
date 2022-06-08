@@ -4,6 +4,4 @@
 
 Agile.Net Obfuscator String Encryption Remake
 
-Just added a very useless kind of Arg WaterMark 🤔
-
 You can check the samples (one is original Agile.Net and the other is the "remake")
